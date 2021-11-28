@@ -27,8 +27,8 @@ public class Property extends BaseEntity{
     @Column
     private String propertyArea;
 
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<PropertyImages> propertyImagesSet = new ArrayList<>();
+//    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private Set<PropertyImages> propertyImagesSet = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id")

@@ -4,9 +4,7 @@ import com.example.MiniProjectApis.CustomException.BadRequestException;
 import com.example.MiniProjectApis.CustomException.NotFoundException;
 import com.example.MiniProjectApis.Dtos.PropertyDto;
 import com.example.MiniProjectApis.Entities.Property;
-import com.example.MiniProjectApis.Entities.PropertyImages;
 import com.example.MiniProjectApis.Entities.User;
-import com.example.MiniProjectApis.Repository.PropertyImageRepository;
 import com.example.MiniProjectApis.Repository.PropertyRepository;
 import com.example.MiniProjectApis.Repository.UserRepository;
 import com.example.MiniProjectApis.Service.PropertyService;
@@ -14,9 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +22,6 @@ public class PropertyServiceImpl implements PropertyService {
     private final PropertyRepository propertyRepository;
 
     private final UserRepository userRepository;
-
-    private final PropertyImageRepository propertyImageRepository;
 
     @Override
     public PropertyDto addProperty(PropertyDto propertyDto) {
