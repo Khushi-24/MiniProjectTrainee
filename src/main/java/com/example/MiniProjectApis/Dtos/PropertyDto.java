@@ -1,10 +1,13 @@
 package com.example.MiniProjectApis.Dtos;
 
+import com.example.MiniProjectApis.Entities.PropertyAndActivityImages;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +27,8 @@ public class PropertyDto {
 
     @NotNull(message = "UserId can't be null or empty")
     private Long userId;
+
+    PropertyImages propertyImages;
+
+//    private List<PropertyAndActivityImages> imagesList = new ArrayList<>();
 }
