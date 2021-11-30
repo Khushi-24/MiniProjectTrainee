@@ -2,6 +2,7 @@ package com.example.MiniProjectApis.ServiceImpl;
 
 import com.example.MiniProjectApis.CustomException.BadRequestException;
 import com.example.MiniProjectApis.CustomException.NotFoundException;
+import com.example.MiniProjectApis.Dtos.ImageDto;
 import com.example.MiniProjectApis.Dtos.PropertyDto;
 import com.example.MiniProjectApis.Dtos.ViewPropertyDetailsResponseDto;
 import com.example.MiniProjectApis.Dtos.ViewImageResponseDto;
@@ -34,13 +35,30 @@ public class PropertyServiceImpl implements PropertyService {
     private final PropertyAndActivityImageRepository propertyImageRepository;
 
     @Override
-    public Property addProperty(PropertyDto propertyDto) {
+    public PropertyDto addProperty(PropertyDto propertyDto) {
         User user = userRepository.findById(propertyDto.getUserId()).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND,
                 "Land Owner doesn't exists."));
         if(user.getRole().equals("Land Owner")){
             if(user.getDeletedTimeStamp() == null){
-                Property property = modelMapper.map(propertyDto, Property.class);
-                propertyRepository.save(property);
+                if(propertyDto.getImageDtoList().size() > 6){
+                    throw new BadRequestException(HttpStatus.BAD_REQUEST, "Can't add more than 6 images of a activity.");
+                }else {
+                    Property property = modelMapper.map(propertyDto, Property.class);
+                    propertyRepository.save(property);
+                    propertyDto.setPropertyId(property.getPropertyId());
+                    List<ImageDto> imageDtoList = propertyDto.getImageDtoList();
+                    imageDtoList.forEach(imageDto -> {
+                        PropertyAndActivityImages images = new PropertyAndActivityImages();
+                        images.setImageName(imageDto.getImageName());
+                        images.setProperty(property);
+                        propertyImageRepository.save(images);
+
+                    });
+                    return propertyDto;
+                }
+//                Property property = modelMapper.map(propertyDto, Property.class);
+//                propertyRepository.save(property);
+
 //                List<PropertyImageDto> propertyImageDtoList = propertyDto.getPropertyImageDto();
 //                propertyImageDtoList.forEach((e) ->{
 //                    PropertyAndActivityImages propertyAndActivityImages = new PropertyAndActivityImages();
@@ -48,7 +66,6 @@ public class PropertyServiceImpl implements PropertyService {
 //                    propertyAndActivityImages.setImageName(e.getImageName());
 //                    propertyImageRepository.save(propertyAndActivityImages);
 //                });
-                return property;
             }
             else{
                 throw new BadRequestException(HttpStatus.BAD_REQUEST, "Land Owner is not Active.");
@@ -63,7 +80,8 @@ public class PropertyServiceImpl implements PropertyService {
     public Property updateProperty(PropertyDto propertyDto, Long propertyId) {
         Property property = propertyRepository.findById(propertyId).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND,
                 "Property doesn't exists."));
-        return addProperty(propertyDto);
+//        return addProperty(propertyDto);
+        return null;
     }
 
     @Override

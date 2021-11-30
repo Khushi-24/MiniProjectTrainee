@@ -5,7 +5,7 @@ import com.example.MiniProjectApis.Dtos.ViewPropertyDetailsResponseDto;
 import com.example.MiniProjectApis.Entities.Property;
 
 public interface PropertyService {
-    Property addProperty(PropertyDto propertyDto);
+    PropertyDto addProperty(PropertyDto propertyDto);
 
     Property updateProperty(PropertyDto propertyDto, Long propertyId);
 

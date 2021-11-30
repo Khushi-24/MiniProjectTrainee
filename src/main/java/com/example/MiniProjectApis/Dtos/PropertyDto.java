@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 public class PropertyDto {
 
+    private Long propertyId;
+
     @NotNull(message = "Property name can't be null or empty")
     @NotEmpty(message = "Property name can't be null or empty")
     private String propertyName;
@@ -26,6 +28,5 @@ public class PropertyDto {
     @NotNull(message = "UserId can't be null or empty")
     private Long userId;
 
-//    private Set<PropertyAndActivityImages> propertyImagesSet = new HashSet<>();
-    private List<ImageDto> propertyImageDto;
+    private List<ImageDto> imageDtoList;
 }

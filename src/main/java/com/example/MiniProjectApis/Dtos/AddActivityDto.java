@@ -15,8 +15,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddActivityDto extends  UpdateActivityDto{
 
-    @NotNull(message = "Property name can't be null or empty")
-    @NotEmpty(message = "Property name can't be null or empty")
+
     List<ImageDto> imageDtoList;
 
 }

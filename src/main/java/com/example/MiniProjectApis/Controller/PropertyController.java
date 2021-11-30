@@ -22,8 +22,8 @@ public class PropertyController {
     @PostMapping("/addProperty")
     @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDto propertyDto){
-        Property property = propertyService.addProperty(propertyDto);
-        return new ResponseEntity<>(property, HttpStatus.CREATED);
+        PropertyDto dto = propertyService.addProperty(propertyDto);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     //edit property
